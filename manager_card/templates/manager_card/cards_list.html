@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form action="">
+        Поиск: <input type="text" placeholder="Search">
+    </form>
+    <p><a href="{% url 'manager_card:generate_cards' %}">Генератор карт</a></p>
+    =====================================================
+    <br>
+    <br>
+    {% if cards %}
+    {% for card in cards %}
+    <li>Номер карты: <a href="{% url 'manager_card:card_detail' card.card_number %}">{{ card.card_number }}</a></li>
+    <ul>Из серии: {{ card.card_series }}</ul>
+    <ul>Выпущена: {{ card.date_of_issue }}</ul>
+    <ul>Годна до: {{ card.activity_end_date }}</ul>
+    <ul>Остаток: {{ card.amount_on_card }}</ul>
+    <ul>Активна: {{ card.card_status }}</ul>
+
+    <ul>
+        {% if card.card_status %}
+        <a href="{% url 'manager_card:relay_status' card.card_number %}">Дективировать карту</a>
+        {% else %}
+        <a href="{% url 'manager_card:relay_status' card.card_number %}">Активировать карту</a>
+        {% endif %}
+        <br>
+        <br>
+        <a href="{% url 'manager_card:delete' card.card_number %}"> Удалить карту</a>
+    </ul>
+    =====================================================
+    {% endfor %}
+    {% else %}
+    <p>Нет ни одной карты</p>
+    {% endif %}
+    {% if cards %}
+        <nav class="list-pages">
+            <p>Пагинация</p>
+            <ul>
+                {% if page_obj.has_previous %}
+                    <li class="page-num">
+                        <a href="?page={{ page_obj.previous_page_number }}">&lt;</a>
+                    </li>
+                {% endif %}
+                {% for p in paginator.page_range %}
+                    {% if page_obj.number == p %}
+                        <li class="page-num page-num-selected">{{ p }}</li>
+                    {% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %} 
+                        <li class="page-num">
+                            <a href="?page={{ p }}">{{ p }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <li class="page-num">
+                        <a href="?page={{ page_obj.next_page_number }}">&gt;</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
+</body>
+
+</html>

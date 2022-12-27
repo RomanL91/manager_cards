@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>Серия карты: {{ card.card_series }}</p>
+    <p>Номер карты: {{ card.card_number }}</p>
+    <ul><a href="{% url 'manager_card:delete' card.card_number %}"> Удалить карту</a></ul>
+    <p>Создана: {{ card.date_of_issue }}</p>
+    <p>Годна до: {{ card.activity_end_date }}</p>
+    <ul>история использования</ul>
+    <ul>===============</ul>
+    {% for i in card.date_of_use.items  %}
+        <ul>{{ i|join:" >>> " }}</ul>
+    {% endfor %}
+    <!-- <p>{{ card.date_of_use.items }}</p> -->
+    <p>Остаток: {{ card.amount_on_card }}</p>
+    <p>Активна: {{ card.card_status }}</p>
+    {% if card.card_status %}
+        <ul><a href="{% url 'manager_card:relay_status' card.card_number %}">Дективировать карту</a></ul>
+    {% else %}
+        <ul><a href="{% url 'manager_card:relay_status' card.card_number %}">Активировать карту</a></ul>
+    {% endif %}
+</body>
+</html>
