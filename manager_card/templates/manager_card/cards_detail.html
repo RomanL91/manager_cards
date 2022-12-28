@@ -10,8 +10,8 @@
     <p>Серия карты: {{ card.card_series }}</p>
     <p>Номер карты: {{ card.card_number }}</p>
     <ul><a href="{% url 'manager_card:delete' card.card_number %}"> Удалить карту</a></ul>
-    <p>Создана: {{ card.date_of_issue }}</p>
-    <p>Годна до: {{ card.activity_end_date }}</p>
+    <p>Выпущена: {{ card.date_of_issue|date:"D d M Y" }} {{ card.date_of_issue|time:"H:i" }}</p>
+    <p>Годна до: {{ card.activity_end_date|date:"D d M Y" }} {{ card.activity_end_date|time:"H:i" }}</p>
     <ul>история использования</ul>
     <ul>===============</ul>
     {% for i in card.date_of_use.items  %}

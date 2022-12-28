@@ -20,8 +20,10 @@
     {% for card in cards %}
     <li>Номер карты: <a href="{% url 'manager_card:card_detail' card.card_number %}">{{ card.card_number }}</a></li>
     <ul>Из серии: {{ card.card_series }}</ul>
-    <ul>Выпущена: {{ card.date_of_issue }}</ul>
-    <ul>Годна до: {{ card.activity_end_date }}</ul>
+    <!-- <ul>Выпущена: {{ card.date_of_issue|date:"D d M Y"  }}</ul> -->
+    <ul>Выпущена: {{ card.date_of_issue|date:"D d M Y" }} {{ card.date_of_issue|time:"H:i" }}</ul>
+    <!-- <ul>Годна до: {{ card.activity_end_date|date:"r"  }}</ul> -->
+    <ul>Годна до: {{ card.activity_end_date|date:"D d M Y" }} {{ card.activity_end_date|time:"H:i" }}</ul>
     <ul>Остаток: {{ card.amount_on_card }}</ul>
     <ul>Активна: {{ card.card_status }}</ul>
 
