@@ -51,6 +51,7 @@ class GeneratorCardsFormView(FormView):
 # ==========================================================================
 from rest_framework import viewsets
 from rest_framework.decorators import action
+from django.http import JsonResponse
 from .serializers import CardsSerializer
 
 
@@ -69,7 +70,9 @@ class CardsViewset(viewsets.ReadOnlyModelViewSet):
             card.card_status = True
         card.save()
         serializer = self.get_serializer(card)
-        return redirect(request.META.get('HTTP_REFERER'))
+        return JsonResponse({'card_status': serializer.data['card_status']})
+        # return JsonResponse(serializer.data)
+        # return redirect(request.META.get('HTTP_REFERER'))
 
 
     @action(detail=True)
