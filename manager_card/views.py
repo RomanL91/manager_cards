@@ -79,4 +79,4 @@ class CardsViewset(viewsets.ReadOnlyModelViewSet):
     def delete(self, request, *args, **kwargs):
         card = self.get_object()
         card.delete()
-        return redirect(request.META.get('HTTP_REFERER'))
+        return redirect('manager_card:cards_list')
