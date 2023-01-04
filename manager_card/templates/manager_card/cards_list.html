@@ -1,4 +1,5 @@
 {% extends 'manager_card/base.html' %}
+{% load static %}
     {% block content %}
     {% if cards %}
     {% for card in cards %}
@@ -7,11 +8,10 @@
     <ul>Выпущена: {{ card.date_of_issue|date:"D d M Y" }} {{ card.date_of_issue|time:"H:i" }}</ul>
     <ul>Годна до: {{ card.activity_end_date|date:"D d M Y" }} {{ card.activity_end_date|time:"H:i" }}</ul>
     <ul>Остаток: {{ card.amount_on_card }}</ul>
-    <ul>Активна: {{ card.card_status }}</ul>
+
 
     <ul>
-        <!-- подправить -->
-        <!-- {% include 'manager_card/includes/card_status_rele.html' %} -->
+            {% include 'manager_card/includes/card_status_rele.html' %}
         <br> 
         <ul><a href="{% url 'manager_card:delete' card.card_number %}"> Удалить карту</a></ul>
     </ul>
@@ -46,4 +46,7 @@
             </ul>
         </nav>
     {% endif %}
+    {% block js %}
+        <script src="{% static 'js/card_status_rele_list.js' %}"></script>
+    {% endblock %}
     {% endblock content %}

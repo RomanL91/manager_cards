@@ -13,8 +13,10 @@
     </form>
     <p><a href="{% url 'manager_card:generate_cards' %}">Генератор карт</a></p>
     <hr>
-    {% block content %}
+    <div id="switch_div">
+        {% block content %}
 
-    {% endblock content %}
+        {% endblock content %}
+    </div>
 </body>
 </html>

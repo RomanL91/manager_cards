@@ -1,4 +1,5 @@
 {% extends 'manager_card/base.html' %}
+{% load static %}
 {% block content %}
     <p>Серия карты: {{ card.card_series }}</p>
     <p>Номер карты: {{ card.card_number }}</p>
@@ -12,4 +13,7 @@
     {% endfor %}
     <p>Остаток: {{ card.amount_on_card }}</p>
     {% include 'manager_card/includes/card_status_rele.html' %}
+    {% block js %}
+    <script src="{% static 'js/card_status_rele_detail.js' %}"></script>
+    {% endblock %}
 {% endblock content %}

@@ -1,10 +1,15 @@
-{% load static %}
-<p>Активна: <b id="st">{{ card.card_status|lower }}</b></p>
-{% if card.card_status %}
-    <ul><a id="switch" href="#" style="color: red;">Дективировать карту</a></ul>
-{% else %}
-    <ul><a id="switch" href="#" style="color: green;">Активировать карту</a></ul>
-{% endif %}
-{% block js %}
-    <script src="{% static 'js/card_status_rele.js' %}"></script>
-{% endblock %}
+    <p>Активна: <b id="st">{{ card.card_status|lower }}</b></p>
+    {% if card.card_status %}
+        <div id="switcch_el">
+            <a id="switch"href="#!" style="color: red;" cardnumber="{{ card.card_number }}">
+                Дективировать карту
+            </a>
+        </div>
+    {% else %}
+        <div id="switcch_el">
+            <a id="switch" href="#!" style="color: green;" cardnumber="{{ card.card_number }}">
+                Активировать карту
+            </a>
+        </div>
+    {% endif %}
+    
